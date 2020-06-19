@@ -13,13 +13,45 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path, include
+from django.conf.urls.static import static
+
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import routers, permissions
 from rest_framework_swagger.views import get_swagger_view
 
+from portfolio import settings
+from .account import views
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="API",
+      default_version='0.1',
+      description="API",
+      contact=openapi.Contact(email="zukkamil.44@gmail.com"),
+      license=openapi.License(name="All rights reserved"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
+
+router = routers.DefaultRouter()
+router.register(r'users', views.AccountViewSet, basename='user')
+router.register(r'guests', views.GuestViewSet)
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^$', get_swagger_view(title='API Endpoints')),
-    url(r'^api-auth/', include('rest_framework.urls'))
-]
+        path('admin/', admin.site.urls),
+        path('', include(router.urls)),
+        path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    ]
+
+if settings.DEBUG:
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('', include(router.urls)),
+        path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+        path('swagger/', schema_view.with_ui('swagger', cache_timeout=0))
+    ]
