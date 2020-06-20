@@ -1,14 +1,8 @@
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.decorators import action
-from rest_framework import mixins
 from rest_framework.response import Response
-
-from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 from django.core.paginator import Paginator
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
 from .models import Account, Guest
@@ -36,11 +30,3 @@ class AccountViewSet(viewsets.ModelViewSet):
 class GuestViewSet(viewsets.ModelViewSet):
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
-
-
-
-
-# @swagger_auto_schema(request_body = AccountSerializer, responses = {
-    #     200: openapi.Response("OK", schema = AccountSerializer),
-    #     400: openapi.Response("Empty")
-    # })
