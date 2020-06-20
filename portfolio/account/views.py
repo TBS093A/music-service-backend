@@ -1,9 +1,9 @@
-from rest_framework import viewsets, mixins, permissions
-from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework import viewsets, mixins
 from rest_framework.response import Response
+from rest_framework.authtoken.views import ObtainAuthToken
+
 from drf_yasg.utils import swagger_auto_schema
 
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 
 from .models import Account, Guest
@@ -14,7 +14,6 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     @swagger_auto_schema(responses={ 200: AccountGetSerializer })
     def retrieve(self, request, pk=None):

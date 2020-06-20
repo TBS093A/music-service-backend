@@ -39,13 +39,12 @@ schema_view = get_schema_view(
 
 router = routers.DefaultRouter()
 router.register(r'users', views.AccountViewSet, basename='user')
-# router.register(r'users/auth', views.AccountAuth, basename='user auth')
 router.register(r'guests', views.GuestViewSet)
 
 urlpatterns = [
         path('admin/', admin.site.urls),
         path('', include(router.urls)),
-        # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+        re_path(r'users/auth', views.AccountAuth.as_view())
     ]
 
 if settings.DEBUG:
@@ -53,6 +52,5 @@ if settings.DEBUG:
         path('admin/', admin.site.urls),
         path('', include(router.urls)),
         re_path(r'users/auth', views.AccountAuth.as_view()),
-        # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
         path('swagger/', schema_view.with_ui('swagger', cache_timeout=0))
     ]

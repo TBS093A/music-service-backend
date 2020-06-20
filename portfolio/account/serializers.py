@@ -3,7 +3,7 @@ from .models import Account, Guest
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, logout as logoutDjango
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 
@@ -47,16 +47,17 @@ class AccountAuthSerializer(serializers.ModelSerializer):
                 token = Token.objects.get(user = user)
             except:
                 token = Token.objects.create(user = user)
-            return { 'token': token.key, 'user': user.toDict() }
+            return { 'Authorization': 'Token ' + token.key, 'user': user.toDict() }
         else:
             return { 'error': 'login failed'}
 
     @staticmethod
     def logout(request, format=None):
+        logoutDjango(request)
         tokenStr = request.headers['Authorization'].split(' ')[1]
         token = Token.objects.get(key = tokenStr)
         token.delete()
-        return { 'info': 'logout' }
+        return { 'info': 'logout success' }
 
     class Meta:
         model = Account
