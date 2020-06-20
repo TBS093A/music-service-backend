@@ -22,7 +22,8 @@ from rest_framework import routers, permissions
 from rest_framework.authtoken import views as authViews
 
 from portfolio import settings
-from .account import views
+from .account.views import GuestViewSet, AccountViewSet, AccountAuth
+from .album.views import AlbumViewSet, TrackViewSet, TrackRowViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -38,19 +39,23 @@ schema_view = get_schema_view(
 
 
 router = routers.DefaultRouter()
-router.register(r'users', views.AccountViewSet, basename='user')
-router.register(r'guests', views.GuestViewSet)
+router.register(r'user', AccountViewSet, basename='user')
+router.register(r'guest', GuestViewSet, basename='guest')
+
+router.register(r'album', AlbumViewSet, basename='album')
+router.register(r'track', TrackViewSet, basename='track')
+router.register(r'track-row', TrackRowViewSet, basename='track row')
 
 urlpatterns = [
         path('admin/', admin.site.urls),
         path('', include(router.urls)),
-        re_path(r'users/auth', views.AccountAuth.as_view())
+        re_path(r'user/auth', AccountAuth.as_view())
     ]
 
 if settings.DEBUG:
     urlpatterns = [
         path('admin/', admin.site.urls),
         path('', include(router.urls)),
-        re_path(r'users/auth', views.AccountAuth.as_view()),
+        re_path(r'user/auth', AccountAuth.as_view()),
         path('swagger/', schema_view.with_ui('swagger', cache_timeout=0))
     ]
