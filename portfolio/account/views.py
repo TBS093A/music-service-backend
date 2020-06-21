@@ -26,8 +26,12 @@ class AnonAndUserPermissions(permissions.BasePermission):
 
 class AccountViewSet(viewsets.ModelViewSet):
     """
-    A User CRUD `retrieve()`, `list()` and abstract `create()` (`create()` is register)
-    and  `update()` from class `ModelViewSet` in viewsets
+    A User CRUD (abstract from `viewsets.ModelViewSet`):
+        `GET`: `list()`
+        `GET`: `retrieve()` /parameter {id}
+        `POST`: `create()`
+        `PUT`&`PATCH`: `update()` /parameter {id}
+        `DELETE`: `destroy()` /parameter {id}
     """
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
@@ -48,7 +52,9 @@ class AccountViewSet(viewsets.ModelViewSet):
 
 class AccountAuth(ObtainAuthToken):
     """
-    A User Authorization `login()`, `logout()`
+    A User Authorization (abstract from ObtainAuthToken): 
+        `POST`: `login()` /create auth token
+        `DELETE`: `logout()` /get auth token from header
     """
     queryset = Account.objects.all()
     serializer_class = AccountAuthSerializer
@@ -70,6 +76,14 @@ class AccountAuth(ObtainAuthToken):
 
 
 class GuestViewSet(viewsets.ModelViewSet):
+    """
+    A Guest CRUD (abstract from `viewsets.ModelViewSet`):
+        `GET`: `list()`
+        `GET`: `retrieve()` /parameter {id}
+        `POST`: `create()`
+        `PUT`&`PATCH`: `update()` /parameter {id}
+        `DELETE`: `destroy()` /parameter {id}
+    """
     queryset = Guest.objects.all()
     serializer_class = GuestSerializer
     permission_classes = (AnonAndUserPermissions, )
