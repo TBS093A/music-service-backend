@@ -20,7 +20,7 @@ class TrackRowSerializer(serializers.ModelSerializer):
         return TrackRow.create(TrackRow, validated_data)
 
     def update(self, instance, validated_data):
-        return instance.update(instance, validated_data)
+        return instance.update(validated_data)
 
     class Meta:
         model = TrackRow
