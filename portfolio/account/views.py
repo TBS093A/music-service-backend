@@ -1,7 +1,6 @@
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 from rest_framework import permissions
-from rest_framework.decorators import permission_classes
 from rest_framework.authtoken.views import ObtainAuthToken
 
 from drf_yasg.utils import swagger_auto_schema
