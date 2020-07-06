@@ -23,7 +23,6 @@ class TrackRatingViewSet(
     def list(self, request, *args, **kwargs):
         trackID = self.kwargs.get('track_id')
         serializer = self.serializer_class.get_default(trackID)
-        print(serializer)
         return Response(serializer)
 
     def create(self, request, *args, **kwargs):
@@ -49,14 +48,23 @@ class AlbumRatingViewSet(
     serializer_class = AlbumRatingSerializer
     lookup_url_kwarg = 'user_id'
 
-    def get(self, request, *args, **kwargs):
-        return Response("elo")
+    def list(self, request, *args, **kwargs):
+        albumID = self.kwargs.get('album_id')
+        serializer = self.serializer_class.get_default(albumID)
+        return Response(serializer)
 
-    def post(self, request, *args, **kwargs):
-        return Response("elo")
+    def create(self, request, *args, **kwargs):
+        albumID = self.kwargs.get('album_id')
+        checkValidate = self.serializer_class(data = request.data)
+        if checkValidate and albumID is not None:
+            serializer = self.serializer_class.create(request.data, album_id=albumID)
+            return Response(serializer.toDict())
+        return Response({ "ID": f"{albumID}" })
 
-    def delete(self, request, *args, **kwargs):
-        return Response("elo")
+    def destroy(self, request, *args, **kwargs):
+        albumID = self.kwargs.get('album_id')
+        userID = self.kwargs.get(self.lookup_url_kwarg)
+        return Response(self.serializer_class.delete(albumID, userID))
 
 class CommentRatingViewSet(
     mixins.ListModelMixin,
@@ -68,12 +76,21 @@ class CommentRatingViewSet(
     serializer_class = CommentRatingSerializer
     lookup_url_kwarg = 'user_id'
 
-    def get(self, request, *args, **kwargs):
-        return Response("elo")
+    def list(self, request, *args, **kwargs):
+        albumID = self.kwargs.get('album_id')
+        serializer = self.serializer_class.get_default(albumID)
+        return Response(serializer)
 
-    def post(self, request, *args, **kwargs):
-        return Response("elo")
+    def create(self, request, *args, **kwargs):
+        albumID = self.kwargs.get('album_id')
+        checkValidate = self.serializer_class(data = request.data)
+        if checkValidate and albumID is not None:
+            serializer = self.serializer_class.create(request.data, album_id=albumID)
+            return Response(serializer.toDict())
+        return Response({ "ID": f"{albumID}" })
 
-    def delete(self, request, *args, **kwargs):
-        return Response("elo")
+    def destroy(self, request, *args, **kwargs):
+        albumID = self.kwargs.get('album_id')
+        userID = self.kwargs.get(self.lookup_url_kwarg)
+        return Response(self.serializer_class.delete(albumID, userID))
 

@@ -6,13 +6,8 @@ from .models import *
 class TrackRatingSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only = True)
     user_id = serializers.IntegerField()
-    value = EnumField(
-        choices=RatingValue, 
-        to_choice=lambda x:(x.name, x.value),
-        to_repr=lambda x: x
-    )
-    # track_id = serializers.IntegerField()
 
+    @staticmethod
     def get_default(track_id):
         queryset = TrackRating.objects.filter(track_id=track_id)
         return [ x.toDict() for x in queryset ]
@@ -34,18 +29,20 @@ class TrackRatingSerializer(serializers.ModelSerializer):
 class CommentRatingSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only = True)
     user_id = serializers.IntegerField()
-    value = EnumField(
-        choices=RatingValue, 
-        to_choice=lambda x:(x.name, x.value),
-        to_repr=lambda x: x
-    )
-    # comment_id = serializers.IntegerField()
 
-    def create(self, validated_data):
-        return CommentRating.create(TrackRating, validated_data)
+    @staticmethod
+    def get_default(comment_id):
+        queryset = CommentRating.objects.filter(comment_id=comment_id)
+        return [ x.toDict() for x in queryset ]
 
-    def update(self, instance, validated_data):
-        return instance.update(validated_data)
+    @staticmethod
+    def create(validated_data, comment_id):
+        validated_data["comment_id"] = comment_id    
+        return CommentRating.create(CommentRating, validated_data)
+
+    @staticmethod
+    def delete(comment_id, user_id):
+        return CommentRating.objects.get(comment_id=comment_id, user_id=user_id).delete()
 
     class Meta:
         model = CommentRating
@@ -55,18 +52,21 @@ class CommentRatingSerializer(serializers.ModelSerializer):
 class AlbumRatingSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only = True)
     user_id = serializers.IntegerField()
-    value = EnumField(
-        choices=RatingValue, 
-        to_choice=lambda x:(x.name, x.value),
-        to_repr=lambda x: x
-    )
-    # album_id = serializers.IntegerField()
 
-    def create(self, validated_data):
-        return AlbumRating.create(TrackRating, validated_data)
+    @staticmethod
+    def get_default(album_id):
+        queryset = AlbumRating.objects.filter(album_id=album_id)
+        return [ x.toDict() for x in queryset ]
 
-    def update(self, instance, validated_data):
-        return instance.update(validated_data)
+    @staticmethod
+    def create(validated_data, album_id):
+        validated_data["album_id"] = album_id    
+        return AlbumRating.create(AlbumRating, validated_data)
+
+    @staticmethod
+    def delete(album_id, user_id):
+        return AlbumRating.objects.get(album_id=album_id, user_id=user_id).delete()
+
 
     class Meta:
         model = AlbumRating

@@ -9,18 +9,13 @@ from portfolio.album.models import Album, Track
 
 from portfolio.utils import OneToManyModel
 
-class RatingValue(enum.Enum):
-    POSITIVE = 1
-    NEGATIVE = -1
-
-    __labels__ = {
-        POSITIVE: ugettext_lazy('POSITIVE'),
-        NEGATIVE: ugettext_lazy('NEGATIVE'),
-    }
-
+RATING_VALUE = [
+    (1, 'POSITIVE'),
+    (0, 'NEGATIVE')
+]
 
 class AbstractRating(OneToManyModel):
-    value = EnumField(choices=RatingValue)
+    value = models.PositiveSmallIntegerField(choices=RATING_VALUE, verbose_name='Type of rating (1 - POSITIVE, 0 - NEGATIVE)')
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     
     class Meta:
