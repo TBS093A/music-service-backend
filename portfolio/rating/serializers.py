@@ -26,26 +26,26 @@ class TrackRatingSerializer(serializers.ModelSerializer):
         fields = ['id', 'user_id', 'value']
 
 
-class CommentRatingSerializer(serializers.ModelSerializer):
+class UserCommentRatingSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only = True)
     user_id = serializers.IntegerField()
 
     @staticmethod
     def get_default(comment_id):
-        queryset = CommentRating.objects.filter(comment_id=comment_id)
+        queryset = UserCommentRating.objects.filter(comment_id=comment_id)
         return [ x.toDict() for x in queryset ]
 
     @staticmethod
     def create(validated_data, comment_id):
         validated_data["comment_id"] = comment_id    
-        return CommentRating.create(CommentRating, validated_data)
+        return UserCommentRating.create(UserCommentRating, validated_data)
 
     @staticmethod
     def delete(comment_id, user_id):
-        return CommentRating.objects.get(comment_id=comment_id, user_id=user_id).delete()
+        return UserCommentRating.objects.get(comment_id=comment_id, user_id=user_id).delete()
 
     class Meta:
-        model = CommentRating
+        model = UserCommentRating
         fields = ['id', 'user_id', 'value']
 
 

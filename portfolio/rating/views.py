@@ -7,8 +7,8 @@ from drf_yasg.utils import swagger_auto_schema
 
 from django.shortcuts import get_object_or_404
 
-from .models import TrackRating, AlbumRating, CommentRating
-from .serializers import TrackRatingSerializer, AlbumRatingSerializer, CommentRatingSerializer
+from .models import TrackRating, AlbumRating, UserCommentRating
+from .serializers import TrackRatingSerializer, AlbumRatingSerializer, UserCommentRatingSerializer
 
 class TrackRatingViewSet(
     mixins.ListModelMixin,
@@ -72,8 +72,8 @@ class CommentRatingViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet
 ):
-    queryset = CommentRating.objects.all()
-    serializer_class = CommentRatingSerializer
+    queryset = UserCommentRating.objects.all()
+    serializer_class = UserCommentRatingSerializer
     lookup_url_kwarg = 'user_id'
 
     def list(self, request, *args, **kwargs):

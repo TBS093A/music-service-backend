@@ -22,8 +22,19 @@ class AbstractRating(OneToManyModel):
         abstract = True
 
 
-class CommentRating(AbstractRating):
+class UserCommentRating(AbstractRating):
     comment = models.ForeignKey(UserComment, on_delete=models.CASCADE)
+
+    def toDict(self):
+        return { 
+            "id": self.id,
+            "user_id": self.user_id,
+            "value": self.value,
+            "comment_id": self.comment_id
+        }
+
+class GuestCommentRating(AbstractRating):
+    comment = models.ForeignKey(GuestComment, on_delete=models.CASCADE)
 
     def toDict(self):
         return { 
