@@ -1,7 +1,7 @@
 from django.db import models
 
-from album.models import Track
-from account.models import Account
+from portfolio.album.models import Track
+from portfolio.account.models import Account
 
 
 class Playlist(models.Model):

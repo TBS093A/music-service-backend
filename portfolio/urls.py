@@ -22,10 +22,10 @@ from rest_framework import routers, permissions
 from rest_framework.authtoken import views as authViews
 
 from portfolio import settings
-from account.views import GuestViewSet, AccountViewSet, AccountAuth
-from album.views import AlbumViewSet, TrackViewSet, TrackRowViewSet
-from rating.views import TrackRatingViewSet, AlbumRatingViewSet, CommentRatingViewSet
-from comment.views import UserCommentViewSet, GuestCommentViewSet
+from portfolio.account.views import GuestViewSet, AccountViewSet, AccountAuth
+from portfolio.album.views import AlbumViewSet, TrackViewSet, TrackRowViewSet
+from portfolio.rating.views import TrackRatingViewSet, AlbumRatingViewSet, CommentRatingViewSet
+from portfolio.comment.views import UserCommentViewSet, GuestCommentViewSet
 
 schema_view = get_schema_view(
    openapi.Info(

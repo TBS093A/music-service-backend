@@ -3,9 +3,9 @@ from django.utils.translation import ugettext_lazy
 from rest_enumfield import EnumField
 import enum
 
-from account.models import Account
-from comment.models import UserComment, GuestComment
-from album.models import Album, Track
+from portfolio.account.models import Account
+from portfolio.comment.models import UserComment, GuestComment
+from portfolio.album.models import Album, Track
 
 from portfolio.utils import OneToManyModel
 

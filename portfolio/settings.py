@@ -42,11 +42,11 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework.authtoken',
     'portfolio',
-    'account',
-    'album',
-    'comment',
-    'playlist',
-    'rating'
+    'portfolio.account',
+    'portfolio.album',
+    'portfolio.comment',
+    'portfolio.playlist',
+    'portfolio.rating'
 ]
 
 MIDDLEWARE = [
