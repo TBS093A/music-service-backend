@@ -1,6 +1,6 @@
 from django.db import models
 
-from portfolio.account.models import Account
+from account.models import Account
 from portfolio.utils import OneToManyModel
 
 class Album(OneToManyModel):

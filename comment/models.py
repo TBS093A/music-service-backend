@@ -1,6 +1,6 @@
 from django.db import models
 
-from portfolio.account.models import Account, Guest
+from account.models import Account, Guest
 
 
 class AbstractComment(models.Model):
