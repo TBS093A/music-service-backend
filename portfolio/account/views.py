@@ -59,7 +59,7 @@ class AccountAuth(ObtainAuthToken):
     serializer_class = AccountAuthSerializer
 
     @swagger_auto_schema(
-        responses={ 200: '{ Token: Authorize }' },
+        responses={ 200: '{ Token: "Token", user: { AccountGet } }' },
         request_body=AccountAuthSerializer
     )
     def post(self, request, *args, **kwargs):

@@ -25,6 +25,7 @@ from portfolio import settings
 from .account.views import GuestViewSet, AccountViewSet, AccountAuth
 from .album.views import AlbumViewSet, TrackViewSet, TrackRowViewSet
 from .rating.views import TrackRatingViewSet, AlbumRatingViewSet, CommentRatingViewSet
+from .comment.views import UserCommentViewSet, GuestCommentViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -50,6 +51,9 @@ router.register(r'track-row', TrackRowViewSet, basename='track row')
 router.register(r'track/(?P<track_id>\w+)/rating', TrackRatingViewSet, basename='track rating')
 router.register(r'album/(?P<album_id>\w+)/rating', AlbumRatingViewSet, basename='album rating')
 router.register(r'comment/(?P<comment_id>\w+)/rating', CommentRatingViewSet, basename='comment rating')
+
+router.register(r'comment/user', UserCommentViewSet, basename='user-comment')
+router.register(r'comment/guest', GuestCommentViewSet, basename='guest-comment')
 
 urlpatterns = [
         path('admin/', admin.site.urls),
