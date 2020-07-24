@@ -1,10 +1,12 @@
 from django.db import models
 
 from portfolio.account.models import Account, Guest
+from portfolio.album.models import Track
 
 
 class AbstractComment(models.Model):
     text = models.CharField(max_length=255)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE)
     
     class Meta:
         abstract = True
