@@ -33,6 +33,7 @@
 │   ├── admin.py
 │   ├── apps.py
 │   ├── models.py
+│   ├── serializers.py
 │   ├── tests.py
 │   └── views.py
 ├── rating
