@@ -21,7 +21,6 @@
 │   ├── serializers.py
 │   ├── tests.py
 │   └── views.py
-├── asgi.py
 ├── comment
 │   ├── admin.py
 │   ├── apps.py
@@ -43,6 +42,7 @@
 │   ├── serializers.py
 │   ├── tests.py
 │   └── views.py
+├── asgi.py
 ├── settings.py
 ├── urls.py
 ├── utils.py
