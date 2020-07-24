@@ -3,10 +3,9 @@
 
 ## Basic Information
 
-### Directory Structure
+### Project Structure
 
 ```bash
-
 .
 ├── account
 │   ├── admin.py
@@ -47,8 +46,22 @@
 ├── urls.py
 ├── utils.py
 └── wsgi.py
-
 ```
+
+### Shell/Bash Files
+
+## packages.sh
+
+This file have every python virtual environment requirements for application run
+
+## migrate.sh
+
+This file migrate every models with database in app and generate UML
+
+## run.sh
+
+This file running application
+
 ## UML
 
 ### Diagram class
