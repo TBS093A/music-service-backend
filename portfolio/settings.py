@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from corsheaders.defaults import default_headers, default_methods
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -18,6 +19,30 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+
+# SECURITY WARNING: CSRF Token for client used in production secret!
+CSRF_HEADER_NAME = 'HTTP_X_XSRF_TOKEN'
+CSRF_USE_SESSIONS = True
+
+# SECURITY WARNING: CORS Settings
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8000"
+]
+CSRF_TRUSTED_ORIGINS  =  [ 
+    'localhost:8000'
+]
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'authorization'
+    'x-csrftoken',
+]
+CORS_ALLOW_METHODS = list(default_methods) +  [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE'
+]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'm$*%jdbc!ig9@#9uga-z($v^f9jk_l($y*mrpzz^u@3fnr2q!a'
@@ -38,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'corsheaders',
     'rest_framework',
     'drf_yasg',
     'rest_framework.authtoken',
@@ -52,6 +78,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -162,7 +189,7 @@ SWAGGER_SETTINGS = {
 
 # UML options
 
-# GRAPH_MODELS = {
-#   'all_applications': True,
-#   'group_models': True,
-# }
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

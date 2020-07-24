@@ -1,5 +1,6 @@
 pip install django 
 
+pip install django-cors-headers
 pip install djangorestframework 
 pip install django-filter
 pip install django-rest-enumfield
