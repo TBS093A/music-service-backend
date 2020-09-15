@@ -3,7 +3,7 @@
 
 ## Basic Information
 
-Appliaction for sharing music and text of songs once.
+Appliaction for sharing music and texts of songs once.
 
 ### Project Structure
 
