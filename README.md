@@ -3,6 +3,8 @@
 
 ## Basic Information
 
+Appliaction for sharing music and text of songs once.
+
 ### Project Structure
 
 ```bash
