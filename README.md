@@ -1,7 +1,7 @@
 
 # Music Service 
 
-## Basic Information
+## Basic Informations
 
 Appliaction for sharing music and texts of songs once.
 
